@@ -1,14 +1,14 @@
 ## Samuel Ramos 
 * 416080977
 * Mecatronica
-* Android Kotlin, Java
-* Python
+* Android
 
+- Kotlin
 ```kotlin
 val clase: String = "Temas Selectos"
 println("Hola mundo")
 ```
-
+- Python
 ```python
 s = "Temas Selectos"
 print s
