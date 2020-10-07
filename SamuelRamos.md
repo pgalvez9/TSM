@@ -1,6 +1,6 @@
 ## Samuel Ramos 
 * 416080977
-* Mecatronica
+* Ingeniería mecatrónica
 * Android
 
 - Kotlin
