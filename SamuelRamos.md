@@ -1,7 +1,9 @@
 ## Samuel Ramos 
 * 416080977
 * Ingeniería mecatrónica
-* Android
+* 6563522110
+* Película favorita: Inception
+* Lugar favorito: Zacatlan
 
 - Kotlin
 ```kotlin
