@@ -1,4 +1,4 @@
-#__Christopher Navarrete Lara__
+# __Christopher Navarrete Lara__
 ***
   * 5573261335
   * Ingeniería mecatrónica
