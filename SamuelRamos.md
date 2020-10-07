@@ -1,6 +1,18 @@
 ## Samuel Ramos 
 * 416080977
 * Mecatronica
+* Android Kotlin, Java
+* Python
+
+```kotlin
+val clase: String = "Temas Selectos"
+println("Hola mundo")
+```
+
+```python
+s = "Temas Selectos"
+print s
+```
 
 [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#links "Markdown")
 
