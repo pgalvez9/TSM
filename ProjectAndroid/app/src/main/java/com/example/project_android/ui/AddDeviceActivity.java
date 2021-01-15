@@ -49,8 +49,9 @@ public class AddDeviceActivity extends AppCompatActivity {
                             new AddDevice("https://tsmpjgv9.000webhostapp.com/new_device.php",
                                     etName.getText().toString());
                     addDevice.execute();
-
                 }
+                else
+                    Toast.makeText(getBaseContext(), "Campo vacio", Toast.LENGTH_LONG).show();
             }
         });
     }
