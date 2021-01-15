@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgonoff"
-    tools:context=".MainActivity">
+    tools:context=".ui.DescriptionDeviceActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,15 +13,39 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/linearInfo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="FOCO 127V"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recamara 1"
+                android:textSize="30sp"
+                android:textColor="#FFF"/>
+
+            <TextView
+                android:id="@+id/textNumberID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID: 1"
+                android:textSize="18sp"
+                android:textColor="#FFF"/>
+
+            <TextView
+                android:id="@+id/textstatusID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STATUS: ON"
+                android:textSize="18sp"
+                android:textColor="#FFF"/>
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/ImageFocoID"
