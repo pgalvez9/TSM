@@ -62,6 +62,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/alarm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -76,14 +77,6 @@
                 android:layout_gravity="center"
                 android:background="@drawable/alarmaoff" />
 
-            <TextView
-                android:id="@+id/textalarmaID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="7:00 pm"
-                android:textColor="#FFF"
-                android:textSize="14sp" />
 
         </LinearLayout>
 
