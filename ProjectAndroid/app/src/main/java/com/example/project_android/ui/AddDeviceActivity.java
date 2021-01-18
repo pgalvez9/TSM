@@ -109,6 +109,8 @@ public class AddDeviceActivity extends AppCompatActivity {
             super.onPostExecute(response);
             if (response.equals("OK")){
                 LAST_ID++;
+                if (LAST_ID == 7)
+                    LAST_ID++;
                 Toast.makeText(getBaseContext(), "Dispositivo agregado", Toast.LENGTH_LONG).show();
             }
         }
