@@ -1,5 +1,6 @@
 package com.example.project_android.ui;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -26,6 +28,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class DevicesActivity extends AppCompatActivity {
 
@@ -49,10 +53,63 @@ public class DevicesActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton regex = findViewById(R.id.voice);
+        regex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "¿En qué te puedo ayudar");
+
+                try {
+                    startActivityForResult(intent,1000);
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(getBaseContext(), " "+e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+
+        });
+
         recyclerView = findViewById(R.id.rvDevicesList);
 
         GetDevices getDevices = new GetDevices("https://tsmpjgv9.000webhostapp.com/get_devices.php", this);
         getDevices.execute();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 1000:
+            {
+                if(resultCode == RESULT_OK && null!= data)
+                {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String m = result.get(0).toLowerCase();
+                    boolean prende= Pattern.matches("enciende.*|prende.*|activar.*|arranca.*|encender.*|ilumina.*", m);
+                    if(prende)
+                    {
+                        //Aquí iría lo de enviar a la base de dato qué cuarto prender
+                        Toast.makeText(getBaseContext(), " Se ha prendido",Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        boolean apagar= Pattern.matches("apaga.*|desactiva.*|quita.*|",m);
+                        if(apagar)
+                        {
+                            //Aquí iría lo de enviar a la base de datos qué cuarto apagar
+                            Toast.makeText(getBaseContext(), " Se ha apagado",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+                break;
+            }
+        }
     }
 
     @Override
