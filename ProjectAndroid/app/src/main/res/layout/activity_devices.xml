@@ -9,9 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDevicesList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-101dp"
-        tools:layout_editor_absoluteY="-65dp" />
+        android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddDevice"
