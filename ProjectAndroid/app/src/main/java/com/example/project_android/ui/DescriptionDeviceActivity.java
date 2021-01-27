@@ -79,7 +79,7 @@ public class DescriptionDeviceActivity extends AppCompatActivity {
         statusService.execute();
     }
 
-    public class ChangeStatusService extends AsyncTask<Void, Void, String> {
+    class ChangeStatusService extends AsyncTask<Void, Void, String> {
 
         private final String urlWebService;
         private final String action;
