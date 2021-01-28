@@ -131,7 +131,7 @@ public class DevicesActivity extends AppCompatActivity {
                         return "sala";
                     else
                     {
-                        if(Pattern.matches("terraza.*|.*cuarto",message))
+                        if(Pattern.matches("terraza.*|.*terraza",message))
                             return "terraza";
                         else
                         {
