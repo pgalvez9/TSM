@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.project_android">
+    package="com.example.project_android"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="22"
+        android:targetSdkVersion="30" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
@@ -12,10 +19,16 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.flash" />
 
     <application
         android:name=".HomeApplication"
         android:allowBackup="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -23,14 +36,16 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".ui.AddDeviceActivity" />
+        <activity android:name=".ui.MessageActivity"/>
         <activity android:name=".ui.DevicesActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.DescriptionDeviceActivity">
+        <activity android:name="com.example.project_android.ui.DescriptionDeviceActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,10 +54,9 @@
         </activity>
 
         <service
-            android:name=".services.EarthquakeService"
+            android:name=".services.EarthquakeLocationService"
             android:enabled="true"
-            android:exported="true"
-            android:stopWithTask="true"/>
+            android:exported="true"/>
 
         <receiver
             android:name=".services.AlarmReceiver"

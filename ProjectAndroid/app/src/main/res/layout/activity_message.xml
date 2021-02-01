@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Message">
+
+    <EditText
+        android:id="@+id/editTextNumberID"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="Phone number"
+        android:inputType="number"/>
+    <EditText
+        android:id="@+id/editTextSmsID"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="Message"
+        android:layout_below="@+id/editTextNumberID"/>
+    <Button
+        android:id="@+id/buttonSendID"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Send sms"
+        android:layout_below="@id/editTextSmsID"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
+
+</RelativeLayout>
