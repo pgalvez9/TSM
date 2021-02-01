@@ -294,6 +294,7 @@ public class DevicesActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
