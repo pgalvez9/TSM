@@ -34,4 +34,16 @@
         app:layout_constraintEnd_toStartOf="@id/fabAddDevice"
         app:srcCompat="@drawable/voice" />
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/getLocationImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/fabAddDevice"
+        app:layout_constraintEnd_toEndOf="@+id/fabAddDevice"
+        app:srcCompat="@drawable/ic_baseline_add_location_24" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

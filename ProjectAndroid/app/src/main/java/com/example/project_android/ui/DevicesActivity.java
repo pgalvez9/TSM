@@ -1,14 +1,20 @@
 package com.example.project_android.ui;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -18,8 +24,11 @@ import android.widget.Toast;
 
 import com.example.project_android.R;
 import com.example.project_android.dataClases.DeviceInfo;
-import com.example.project_android.services.EarthquakeService;
+import com.example.project_android.services.EarthquakeLocationService;
 import com.example.project_android.ui.adapter.DevicesAdapter;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.GsonBuilder;
 
@@ -42,14 +51,23 @@ public class DevicesActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DevicesAdapter devicesAdapter;
 
+    private final int PERMISSION_REQUEST_CODE = 4000;
+    private FusedLocationProviderClient fusedLocationClient;
+    private SharedPreferences sharedPref;
+
+    private static final String TAG = "DevicesActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices);
 
-        Intent intentEarthquake = new Intent(this, EarthquakeService.class);
+        sharedPref = this.getSharedPreferences(
+                getString(R.string.preferences_file_key), Context.MODE_PRIVATE);
+
+        Intent intentEarthquake = new Intent(this, EarthquakeLocationService.class);
         startService(intentEarthquake);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         FloatingActionButton fabAddDevice = findViewById(R.id.fabAddDevice);
         fabAddDevice.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +76,14 @@ public class DevicesActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), AddDeviceActivity.class);
                 intent.putExtra("LAST_ID", listDevices.size());
                 startActivity(intent);
+            }
+        });
+
+        FloatingActionButton fabGetLocation = findViewById(R.id.getLocationImageButton);
+        fabGetLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkLocationPermisson();
             }
         });
 
@@ -84,6 +110,14 @@ public class DevicesActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE){
+            getLocation();
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
@@ -94,7 +128,7 @@ public class DevicesActivity extends AppCompatActivity {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String m = result.get(0).toLowerCase();
                     String cuarto = getName(m);
-                    if (cuarto!="errorV")
+                    if (!cuarto.equals("errorV"))
                     {
                         if (Pattern.matches("enciende.*|prende.*|activa.*|arranca.*|encender.*|ilumina.*", m))
                         {
@@ -265,6 +299,34 @@ public class DevicesActivity extends AppCompatActivity {
         super.onResume();
         GetDevices getDevices = new GetDevices("https://tsmpjgv9.000webhostapp.com/get_devices.php", this);
         getDevices.execute();
+    }
+
+    private void checkLocationPermisson(){
+        if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
+        }
+        else {
+            getLocation();
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getLocation(){
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString(getString(R.string.preferences_actual_lat), ((Double)location.getLatitude()).toString());
+                            editor.putString(getString(R.string.preferences_actual_long), ((Double) location.getLongitude()).toString());
+                            editor.apply();
+                            Log.d(TAG, ((Double)location.getLatitude()).toString());
+                            Log.d(TAG, ((Double)location.getLongitude()).toString());
+                            Toast.makeText(getBaseContext(), "Ubicación actual guardada", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     class GetDevices extends AsyncTask<Void, Void, String> {
