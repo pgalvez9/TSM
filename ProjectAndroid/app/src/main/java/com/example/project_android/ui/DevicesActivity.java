@@ -1,6 +1,8 @@
 package com.example.project_android.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.project_android.R;
 import com.example.project_android.dataClases.DeviceInfo;
+import com.example.project_android.services.EarthquakeService;
 import com.example.project_android.ui.adapter.DevicesAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.GsonBuilder;
@@ -39,6 +42,9 @@ public class DevicesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices);
 
+        Intent intentEarthquake = new Intent(this, EarthquakeService.class);
+        startService(intentEarthquake);
+
         FloatingActionButton fabAddDevice = findViewById(R.id.fabAddDevice);
         fabAddDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,9 +56,6 @@ public class DevicesActivity extends AppCompatActivity {
         });
 
         recyclerView = findViewById(R.id.rvDevicesList);
-
-        GetDevices getDevices = new GetDevices("https://tsmpjgv9.000webhostapp.com/get_devices.php", this);
-        getDevices.execute();
     }
 
     @Override
@@ -99,24 +102,26 @@ public class DevicesActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
-            listDevices.clear();
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            try {
-                JSONArray jsonArray = new JSONArray(response);
+            if (response != null){
+                listDevices.clear();
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
 
-                for(int i = 0; i < jsonArray.length(); i++){
-                    listDevices.add(gsonBuilder.create().fromJson(jsonArray.getString(i), DeviceInfo.class));
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        listDevices.add(gsonBuilder.create().fromJson(jsonArray.getString(i), DeviceInfo.class));
+                    }
+                    if (devicesAdapter != null){
+                        devicesAdapter.updateDevices(listDevices);
+                    }
+                    else{
+                        devicesAdapter = new DevicesAdapter(context, listDevices);
+                        recyclerView.setAdapter(devicesAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                if (devicesAdapter != null){
-                    devicesAdapter.updateDevices(listDevices);
-                }
-                else{
-                    devicesAdapter = new DevicesAdapter(context, listDevices);
-                    recyclerView.setAdapter(devicesAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }
