@@ -85,6 +85,8 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
                         if (selectedHour < 10) finalHour = "0" + selectedHour;
                         if (selectedMinute < 10) finalMinute = "0" + selectedMinute;
 
+                        //holder.alarmTime.setText(finalHour + ":" + finalMinute);
+
                         Calendar today = Calendar.getInstance();
 
                         today.set(Calendar.HOUR_OF_DAY, selectedHour);
@@ -118,7 +120,9 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvID, tvStatus;
+
+        TextView tvName, tvID, tvStatus, alarmTime;
+
         LinearLayout mainLayout, alarmLayout;
         ImageView ivStatus;
 
@@ -127,6 +131,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
             tvName = itemView.findViewById(R.id.textName);
             tvID = itemView.findViewById(R.id.textNumberID);
             tvStatus = itemView.findViewById(R.id.textstatusID);
+            //alarmTime=itemView.findViewById(R.id.textalarmaID);
             mainLayout = itemView.findViewById(R.id.mainLayout);
             ivStatus = itemView.findViewById(R.id.imageID);
             alarmLayout = itemView.findViewById(R.id.alarm);
