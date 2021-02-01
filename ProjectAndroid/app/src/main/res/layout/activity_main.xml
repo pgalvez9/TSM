@@ -16,7 +16,7 @@
         <LinearLayout
             android:id="@+id/linearInfo"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:orientation="vertical"
             android:layout_marginStart="10dp"
             android:layout_gravity="center">
@@ -44,6 +44,13 @@
                 android:text="STATUS: ON"
                 android:textSize="18sp"
                 android:textColor="#FFF"/>
+            <TextView
+                android:id="@+id/textDimmer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nivel de luz:"
+                android:textSize="18sp"
+                android:textColor="#FFF"/>
 
         </LinearLayout>
 
@@ -53,6 +60,18 @@
             android:layout_height="250dp"
             android:layout_gravity="center"
             android:background="@drawable/buttonoff" />
+
+        <SeekBar
+            android:id="@+id/barra_1"
+            android:layout_width="380dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="15dp"
+            android:paddingTop="15dp"
+            android:indeterminate="false"
+            android:max="250"
+            android:progress="0"
+            android:progressDrawable="@drawable/track"
+            android:thumb="@drawable/thumb" />
 
         <Button
             android:layout_width="200dp"
