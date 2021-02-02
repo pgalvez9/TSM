@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".services.SendAlert">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="S.O.S"
+            android:gravity="center"
+            android:textSize="45sp"/>
+
+
+
+        <TextView
+            android:id="@+id/textNumberID1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contacto 1"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/textNumberID2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contacto 2"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/textNumberID3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contacto 3"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mi ubicacion"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

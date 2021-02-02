@@ -1,12 +1,10 @@
-package com.example.project_android.ui;
+package com.example.project_android.services;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-
-import com.example.project_android.ui.adapter.DevicesAdapter;
 
 import static android.content.Context.ALARM_SERVICE;
 
