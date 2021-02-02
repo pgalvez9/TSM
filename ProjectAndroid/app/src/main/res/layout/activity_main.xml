@@ -68,7 +68,7 @@
             android:layout_marginStart="15dp"
             android:paddingTop="15dp"
             android:indeterminate="false"
-            android:max="250"
+            android:max="1023"
             android:progress="0"
             android:progressDrawable="@drawable/track"
             android:thumb="@drawable/thumb" />

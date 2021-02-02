@@ -1,33 +1,13 @@
 package com.example.project_android.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-<<<<<<< HEAD
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.bluetooth.BluetoothClass;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-=======
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
->>>>>>> origin/master
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -36,15 +16,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.project_android.R;
 import com.example.project_android.RecyclerItemTouch;
 import com.example.project_android.SMS;
 import com.example.project_android.dataClases.DeviceInfo;
-<<<<<<< HEAD
-import com.example.project_android.services.EarthquakeService;
-=======
 import com.example.project_android.services.EarthquakeLocationService;
->>>>>>> origin/master
 import com.example.project_android.ui.adapter.DevicesAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -73,6 +58,7 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
     private DevicesAdapter devicesAdapter;
     private Button buttonEmergency;
 
+
     private final int PERMISSION_REQUEST_CODE = 4000;
     private FusedLocationProviderClient fusedLocationClient;
     private SharedPreferences sharedPref;
@@ -84,18 +70,12 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices);
 
-<<<<<<< HEAD
-
-        Intent intentEarthquake = new Intent(this, EarthquakeService.class);
-        startService(intentEarthquake);
-=======
         sharedPref = this.getSharedPreferences(
                 getString(R.string.preferences_file_key), Context.MODE_PRIVATE);
 
         Intent intentEarthquake = new Intent(this, EarthquakeLocationService.class);
         startService(intentEarthquake);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
->>>>>>> origin/master
 
         FloatingActionButton fabAddDevice = findViewById(R.id.fabAddDevice);
         fabAddDevice.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +115,8 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
         });
 
         recyclerView = findViewById(R.id.rvDevicesList);
-<<<<<<< HEAD
+
+        recyclerView = findViewById(R.id.rvDevicesList);
         buttonEmergency = findViewById(R.id.contactosID);
 
         buttonEmergency.setOnClickListener(new View.OnClickListener() {
@@ -151,11 +132,6 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
         ItemTouchHelper.SimpleCallback simpleCallback =
                 new RecyclerItemTouch(0, ItemTouchHelper.LEFT, DevicesActivity.this);
         new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
-    }
-
-
-
-=======
     }
 
     @Override
@@ -185,7 +161,7 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
                             upV.execute();
                         }
                         else
-                            {
+                        {
                             if (Pattern.matches("apaga.*|desactiva.*|quita.*|", m)) {
                                 UpdateV upV= new UpdateV("https://tsmpjgv9.000webhostapp.com/switchByName.php",cuarto,0);
                                 upV.execute();
@@ -344,7 +320,6 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
     }
 
 
->>>>>>> origin/master
     @Override
     protected void onResume() {
         super.onResume();
@@ -352,7 +327,6 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
         getDevices.execute();
     }
 
-<<<<<<< HEAD
     @Override
     public void onSwipe(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if(viewHolder instanceof DevicesAdapter.ViewHolder)
@@ -385,7 +359,7 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
         snackbar.setActionTextColor(Color.GREEN);
         snackbar.show();
 
-=======
+    }
     private void checkLocationPermisson(){
         if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
@@ -412,7 +386,6 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
                         }
                     }
                 });
->>>>>>> origin/master
     }
 
     class GetDevices extends AsyncTask<Void, Void, String> {

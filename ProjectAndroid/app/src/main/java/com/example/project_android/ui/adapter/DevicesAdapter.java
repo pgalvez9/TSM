@@ -86,11 +86,6 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
                         if (selectedHour < 10) finalHour = "0" + selectedHour;
                         if (selectedMinute < 10) finalMinute = "0" + selectedMinute;
 
-<<<<<<< HEAD
-=======
-                        //holder.alarmTime.setText(finalHour + ":" + finalMinute);
-
->>>>>>> origin/master
                         Calendar today = Calendar.getInstance();
 
                         today.set(Calendar.HOUR_OF_DAY, selectedHour);
@@ -123,19 +118,11 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
         return devicesList.size();
     }
 
-<<<<<<< HEAD
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvID, tvStatus;
         LinearLayout alarmLayout;
         RelativeLayout mainLayout;
         public LinearLayout layoutAborrar;
-=======
-    static class ViewHolder extends RecyclerView.ViewHolder {
-
-        TextView tvName, tvID, tvStatus, alarmTime;
-
-        LinearLayout mainLayout, alarmLayout;
->>>>>>> origin/master
         ImageView ivStatus;
 
         public ViewHolder(@NonNull View itemView) {
@@ -143,14 +130,10 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
             tvName = itemView.findViewById(R.id.textName);
             tvID = itemView.findViewById(R.id.textNumberID);
             tvStatus = itemView.findViewById(R.id.textstatusID);
-            //alarmTime=itemView.findViewById(R.id.textalarmaID);
             mainLayout = itemView.findViewById(R.id.mainLayout);
             ivStatus = itemView.findViewById(R.id.imageID);
             alarmLayout = itemView.findViewById(R.id.alarm);
-<<<<<<< HEAD
             layoutAborrar = itemView.findViewById(R.id.layoutAborrar);
-=======
->>>>>>> origin/master
         }
     }
 

@@ -21,12 +21,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-<<<<<<< HEAD
-=======
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.flash" />
->>>>>>> origin/master
+
 
     <application
         android:name=".HomeApplication"
@@ -37,15 +34,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
+
         <activity android:name=".services.SendAlert"></activity>
         <activity android:name=".SMS" />
         <activity android:name=".ui.AddDeviceActivity" />
-=======
-
-        <activity android:name=".ui.AddDeviceActivity" />
         <activity android:name=".ui.MessageActivity"/>
->>>>>>> origin/master
         <activity android:name=".ui.DevicesActivity">
 
             <intent-filter>
@@ -63,16 +56,10 @@
         </activity>
 
         <service
-<<<<<<< HEAD
-            android:name=".services.EarthquakeService"
-            android:enabled="true"
-            android:exported="true"
-            android:stopWithTask="true" />
-=======
             android:name=".services.EarthquakeLocationService"
             android:enabled="true"
             android:exported="true"/>
->>>>>>> origin/master
+
 
         <receiver
             android:name=".services.AlarmReceiver"
@@ -80,7 +67,6 @@
 
         <service
             android:name=".services.NotificationService"
-<<<<<<< HEAD
             android:enabled="true"
             android:foregroundServiceType="dataSync" />
 
@@ -88,10 +74,6 @@
             android:name=".services.NotificationReciver"
             android:enabled="true"/>
 
-=======
-            android:foregroundServiceType="dataSync"
-            android:enabled="true" />
->>>>>>> origin/master
     </application>
 
 </manifest>
