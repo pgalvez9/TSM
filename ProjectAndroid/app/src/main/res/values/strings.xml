@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Project-Android</string>
+
+    <string name="number1">com.example.project_android.number1</string>
+    <string name="number2">com.example.project_android.number2</string>
+    <string name="number3">com.example.project_android.number3</string>
+
 </resources>

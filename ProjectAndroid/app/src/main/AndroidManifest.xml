@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.project_android"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="22"
-        android:targetSdkVersion="30" />
+    package="com.example.project_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -21,41 +15,51 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.flash" />
-
-
     <application
+        android:name=".HomeApplication"
         android:allowBackup="true"
-        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name="com.example.project_android.ui.AddDeviceActivity" />
-        <activity android:name="com.example.project_android.ui.DevicesActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".services.SendAlert"></activity>
+        <activity android:name=".SMS" />
+        <activity android:name=".ui.AddDeviceActivity" />
+        <activity android:name=".ui.DevicesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.project_android.ui.DescriptionDeviceActivity" >
+        <activity android:name=".ui.DescriptionDeviceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".services.EarthquakeService"
+            android:enabled="true"
+            android:exported="true"
+            android:stopWithTask="true" />
 
         <receiver
-            android:name="com.example.project_android.ui.AlarmReceiver"
+            android:name=".services.AlarmReceiver"
             android:enabled="true" />
 
         <service
-            android:name="com.example.project_android.ui.NotificationService"
-            android:enabled="true" />
+            android:name=".services.NotificationService"
+            android:enabled="true"
+            android:foregroundServiceType="dataSync" />
+
+        <receiver
+            android:name=".services.NotificationReciver"
+            android:enabled="true"/>
+
     </application>
 
 </manifest>

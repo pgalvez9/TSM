@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -17,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project_android.R;
 import com.example.project_android.dataClases.DeviceInfo;
+import com.example.project_android.services.Utils;
 import com.example.project_android.ui.DescriptionDeviceActivity;
-import com.example.project_android.ui.Utils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -84,7 +85,6 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
                         finalMinute = "" + selectedMinute;
                         if (selectedHour < 10) finalHour = "0" + selectedHour;
                         if (selectedMinute < 10) finalMinute = "0" + selectedMinute;
-                        holder.alarmTime.setText(finalHour + ":" + finalMinute);
 
                         Calendar today = Calendar.getInstance();
 
@@ -118,9 +118,11 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
         return devicesList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvID, tvStatus, alarmTime;
-        LinearLayout mainLayout, alarmLayout;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvName, tvID, tvStatus;
+        LinearLayout alarmLayout;
+        RelativeLayout mainLayout;
+        public LinearLayout layoutAborrar;
         ImageView ivStatus;
 
         public ViewHolder(@NonNull View itemView) {
@@ -128,10 +130,25 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
             tvName = itemView.findViewById(R.id.textName);
             tvID = itemView.findViewById(R.id.textNumberID);
             tvStatus = itemView.findViewById(R.id.textstatusID);
-            alarmTime=itemView.findViewById(R.id.textalarmaID);
             mainLayout = itemView.findViewById(R.id.mainLayout);
             ivStatus = itemView.findViewById(R.id.imageID);
             alarmLayout = itemView.findViewById(R.id.alarm);
+            layoutAborrar = itemView.findViewById(R.id.layoutAborrar);
         }
     }
+
+    public void removeDevice (int position)
+    {
+        devicesList.remove(position);
+        notifyItemRemoved(position);
+
+    }
+
+    public void restoreDevice ( DeviceInfo deviceInfo, int position)
+    {
+        devicesList.add(position, deviceInfo);
+        notifyItemInserted(position);
+
+    }
+
 }
