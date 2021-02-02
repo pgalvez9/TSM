@@ -24,6 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add" />
 
+<<<<<<< HEAD
     <Button
         android:id="@+id/contactosID"
         android:layout_width="wrap_content"
@@ -32,6 +33,30 @@
         android:text="Contactos EMERGENCIA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+=======
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/voice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fabAddDevice"
+        app:srcCompat="@drawable/voice" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/getLocationImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/fabAddDevice"
+        app:layout_constraintEnd_toEndOf="@+id/fabAddDevice"
+        app:srcCompat="@drawable/ic_baseline_add_location_24" />
+>>>>>>> origin/master
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
