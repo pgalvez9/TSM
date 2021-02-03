@@ -55,7 +55,7 @@ public class Alert {
                     //vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
                     //vibrator.hasVibrator();
                     camera= Camera.open();
-                    for(int i =0; i < 20; i++)
+                    for(int i =0; i < 6; i++)
                     {
 
                         turnOnFlash();
