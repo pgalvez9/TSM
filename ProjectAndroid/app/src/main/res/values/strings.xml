@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Project-Android</string>
+
+    <string name="number1">com.example.project_android.number1</string>
+    <string name="number2">com.example.project_android.number2</string>
+    <string name="number3">com.example.project_android.number3</string>
+
+
     <string name="preferences_file_key">com.example.project_android.PREFERENCE_FILE_KEY</string>
     <string name="preferences_actual_lat">ACTUAL_LAT</string>
     <string name="preferences_actual_long">ACTUAL_LONG</string>
+
 </resources>

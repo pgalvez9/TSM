@@ -1,28 +1,33 @@
 package com.example.project_android.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.project_android.R;
+import com.example.project_android.RecyclerItemTouch;
+import com.example.project_android.SMS;
 import com.example.project_android.dataClases.DeviceInfo;
 import com.example.project_android.services.EarthquakeLocationService;
 import com.example.project_android.ui.adapter.DevicesAdapter;
@@ -30,6 +35,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
@@ -45,11 +51,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-public class DevicesActivity extends AppCompatActivity {
+public class DevicesActivity extends AppCompatActivity implements RecyclerItemTouch.RecyclerItemTouchHelperListener {
 
     private List<DeviceInfo> listDevices = new ArrayList<>();
     private RecyclerView recyclerView;
     private DevicesAdapter devicesAdapter;
+    private Button buttonEmergency;
+
 
     private final int PERMISSION_REQUEST_CODE = 4000;
     private FusedLocationProviderClient fusedLocationClient;
@@ -107,6 +115,23 @@ public class DevicesActivity extends AppCompatActivity {
         });
 
         recyclerView = findViewById(R.id.rvDevicesList);
+
+        recyclerView = findViewById(R.id.rvDevicesList);
+        buttonEmergency = findViewById(R.id.contactosID);
+
+        buttonEmergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getBaseContext(), SMS.class);
+                startActivity(intent);
+
+            }
+        });
+
+        ItemTouchHelper.SimpleCallback simpleCallback =
+                new RecyclerItemTouch(0, ItemTouchHelper.LEFT, DevicesActivity.this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -136,7 +161,7 @@ public class DevicesActivity extends AppCompatActivity {
                             upV.execute();
                         }
                         else
-                            {
+                        {
                             if (Pattern.matches("apaga.*|desactiva.*|quita.*|", m)) {
                                 UpdateV upV= new UpdateV("https://tsmpjgv9.000webhostapp.com/switchByName.php",cuarto,0);
                                 upV.execute();
@@ -302,6 +327,39 @@ public class DevicesActivity extends AppCompatActivity {
         getDevices.execute();
     }
 
+    @Override
+    public void onSwipe(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if(viewHolder instanceof DevicesAdapter.ViewHolder)
+        {
+
+
+            String deviceName = listDevices.get(viewHolder.getAdapterPosition()).getName();
+            final DeviceInfo deviceRemove = listDevices.get(viewHolder.getAdapterPosition());
+
+            int DeletedIntex = viewHolder.getAdapterPosition();
+
+            devicesAdapter.removeDevice(viewHolder.getAdapterPosition());
+
+            restoreDeviceDeleted(viewHolder, deviceName, deviceRemove, DeletedIntex);
+
+        }
+    }
+
+    private void restoreDeviceDeleted(RecyclerView.ViewHolder viewHolder, String deviceName, final DeviceInfo deviceRemove, final int DeletedIntex)
+    {
+        Snackbar snackbar = Snackbar.make(((DevicesAdapter.ViewHolder)viewHolder).layoutAborrar, deviceName + "Eliminado", Snackbar.LENGTH_LONG);
+        snackbar.setAction("Deshacer", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                devicesAdapter.restoreDevice(deviceRemove, DeletedIntex);
+
+            }
+        });
+
+        snackbar.setActionTextColor(Color.GREEN);
+        snackbar.show();
+
+    }
     private void checkLocationPermisson(){
         if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);

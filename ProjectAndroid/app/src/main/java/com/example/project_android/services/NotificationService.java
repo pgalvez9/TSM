@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -75,11 +76,18 @@ public class NotificationService extends IntentService {
                     notifManager.createNotificationChannel(mChannel);
                 }
                 builder = new NotificationCompat.Builder(context, id);
-                //mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                //pendingIntent = PendingIntent.getActivity(context, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 Intent intent = new Intent(this, DevicesActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 pendingIntent = PendingIntent.getActivity(this, ID, intent, 0);
+
+                Intent broadcastIntent = new Intent(this, NotificationReciver.class); //*******
+                broadcastIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                broadcastIntent.putExtra("ID", ID);
+                broadcastIntent.putExtra("NAME", bundle.getString("NAME"));
+
+                PendingIntent actionIntent=PendingIntent.getBroadcast(this,100+ID,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT); //******
+
 
                 builder.setContentTitle("Recordatorio").setCategory(Notification.CATEGORY_SERVICE)
                         .setSmallIcon(R.drawable.alarmaoff)   // required
@@ -87,11 +95,16 @@ public class NotificationService extends IntentService {
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.alarmaoff))
                         .setDefaults(Notification.DEFAULT_ALL)
                         .setAutoCancel(true)
+                        .setOnlyAlertOnce(true)  //*******
+                        .setColor(Color.BLUE)
                         .setSound(soundUri)
                         .setContentIntent(pendingIntent)
                         .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                        builder.setContentIntent(pendingIntent);
+                builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                builder.setContentIntent(pendingIntent);
+                builder.addAction(R.drawable.alarmaoff, "Apagar " + string, actionIntent);
+
+
                 Notification notification = builder.build();
                 if(ID==1){
                     notifManager.notify(NOTIFY_ID, notification);

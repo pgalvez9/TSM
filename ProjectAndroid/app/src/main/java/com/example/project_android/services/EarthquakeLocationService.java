@@ -15,25 +15,22 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.LongDef;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.project_android.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.maps.android.SphericalUtil;
 
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.Executor;
 
 public class EarthquakeLocationService extends Service {
 
@@ -170,6 +167,19 @@ public class EarthquakeLocationService extends Service {
             if ("[{\"temblando\":\"1\"}]".equals(response)){
                 ChangeStatusService changeStatusService = new ChangeStatusService(1, "https://tsmpjgv9.000webhostapp.com/change_status.php");
                 changeStatusService.execute();
+                try {
+                    Alert alert1= new Alert();
+                    Method m=Alert.class.getDeclaredMethod("flash_effect");
+                    m.setAccessible(true);
+                    m.invoke(alert1);
+                    Log.d("TSM", " Alerta recibida");
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
             }
             isConsulting = false;
         }
