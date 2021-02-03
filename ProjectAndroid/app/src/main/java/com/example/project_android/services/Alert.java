@@ -1,14 +1,7 @@
 package com.example.project_android.services;
 
-import android.content.Context;
 import android.hardware.Camera;
-import android.os.Build;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
-
-import com.example.project_android.ui.adapter.DevicesAdapter;
-
-import static android.content.Context.VIBRATOR_SERVICE;
 
 public class Alert {
 
@@ -56,34 +49,37 @@ public class Alert {
 
             public void run()
             {
-                camera= Camera.open();
+
 
                 try {
                     //vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
-                    vibrator.hasVibrator();
+                    //vibrator.hasVibrator();
+                    camera= Camera.open();
+                    for(int i =0; i < 20; i++)
+                    {
+
+                        turnOnFlash();
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        turnOffFlash();
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+
+                            e.printStackTrace();
+                        }
+
+                    }
+                    camera.stopPreview();
+                    camera.release();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
 
-                for(int i =0; i < 20; i++)
-                {
-
-                    turnOnFlash();
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    turnOffFlash();
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-
-                        e.printStackTrace();
-                    }
-
-                }
             }
 
         };
