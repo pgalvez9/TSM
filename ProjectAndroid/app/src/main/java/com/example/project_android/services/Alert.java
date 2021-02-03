@@ -1,7 +1,14 @@
 package com.example.project_android.services;
 
+import android.content.Context;
 import android.hardware.Camera;
+import android.os.Build;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
+
+import com.example.project_android.ui.adapter.DevicesAdapter;
+
+import static android.content.Context.VIBRATOR_SERVICE;
 
 public class Alert {
 
@@ -49,7 +56,7 @@ public class Alert {
 
             public void run()
             {
-
+                camera= Camera.open();
 
                 try {
                     //vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);

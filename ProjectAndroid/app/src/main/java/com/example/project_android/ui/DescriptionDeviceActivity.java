@@ -64,7 +64,7 @@ public class DescriptionDeviceActivity extends AppCompatActivity {
             private Integer progress;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                textDimmer.setText("Nivel de luz: "+progress + "/250");
+                textDimmer.setText("Nivel de luz: "+progress + "/1023");
                 this.progress=progress;
             }
 

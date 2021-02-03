@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -15,9 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.project_android.services.SendAlert;
+
 public class SMS extends AppCompatActivity {
 
-    Button ButtonSend;
+    Button ButtonSend, ButtonSend2;
     EditText editTextPhone1, editTextPhone2, editTextPhone3, editTextMessage;
 
     private SharedPreferences mPreferences;
@@ -30,6 +33,7 @@ public class SMS extends AppCompatActivity {
         setContentView(R.layout.activity_s_m_s);
 
         ButtonSend = findViewById(R.id.buttonSendID);
+        ButtonSend2 = findViewById(R.id.buttonSendID2);
         editTextPhone1 = findViewById(R.id.editTextNumber1ID);
         editTextPhone2 = findViewById(R.id.editTextNumber2ID);
         editTextPhone3 = findViewById(R.id.editTextNumber3ID);
@@ -60,6 +64,14 @@ public class SMS extends AppCompatActivity {
         }
 
          */
+
+        ButtonSend2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), SendAlert.class);
+                startActivity(intent);
+            }
+        });
 
 
 

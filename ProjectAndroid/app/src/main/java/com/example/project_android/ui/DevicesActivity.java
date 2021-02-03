@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
@@ -69,6 +70,7 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices);
+
 
         sharedPref = this.getSharedPreferences(
                 getString(R.string.preferences_file_key), Context.MODE_PRIVATE);
@@ -376,13 +378,26 @@ public class DevicesActivity extends AppCompatActivity implements RecyclerItemTo
                     @Override
                     public void onSuccess(Location location) {
                         if (location != null) {
+
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString(getString(R.string.preferences_actual_lat), ((Double)location.getLatitude()).toString());
-                            editor.putString(getString(R.string.preferences_actual_long), ((Double) location.getLongitude()).toString());
+                            editor.putString(getString(R.string.preferences_actual_long), ((Double)location.getLongitude()).toString());
                             editor.apply();
                             Log.d(TAG, ((Double)location.getLatitude()).toString());
                             Log.d(TAG, ((Double)location.getLongitude()).toString());
                             Toast.makeText(getBaseContext(), "Ubicación actual guardada", Toast.LENGTH_LONG).show();
+
+                            /*
+
+                            /////////
+                            mEditor.putString(getString(R.string.preferences_actual_lat),((Double)location.getLatitude()).toString());
+                            mEditor.commit();
+                            mEditor.putString(getString(R.string.preferences_actual_long),((Double)location.getLatitude()).toString());
+                            mEditor.commit();
+
+                             */
+
+
                         }
                     }
                 });
